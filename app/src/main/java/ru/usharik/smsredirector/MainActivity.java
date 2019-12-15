@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
      * Request runtime SMS permission
      */
     private void requestReadAndSendSmsPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, SMS_PERMISSION_CODE);
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS},
+                SMS_PERMISSION_CODE);
     }
 }
