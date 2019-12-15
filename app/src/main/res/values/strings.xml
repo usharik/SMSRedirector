@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SMSRedirector</string>
+    <string name="endpoint_url">Endpoint URL</string>
+</resources>
