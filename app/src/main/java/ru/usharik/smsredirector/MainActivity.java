@@ -5,13 +5,13 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         if (!isSmsPermissionGranted()) {
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 .map(smsMessage -> {
                     String message = "Sender : " + smsMessage.getDisplayOriginatingAddress()
                             + "Email From: " + smsMessage.getEmailFrom()
-                            + "Emal Body: " + smsMessage.getEmailBody()
+                            + "Email Body: " + smsMessage.getEmailBody()
                             + "Display message body: " + smsMessage.getDisplayMessageBody()
                             + "Time in millisecond: " + smsMessage.getTimestampMillis()
                             + "Message: " + smsMessage.getMessageBody();
@@ -79,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
                                 .execute();
                     } catch (Exception ex) {
                         Log.e("MainActivity", "Error", ex);
+                        MainActivity.this.runOnUiThread(() -> {
+                            Toast.makeText(MainActivity.this, ex.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        });
                     }
                 });
     }
